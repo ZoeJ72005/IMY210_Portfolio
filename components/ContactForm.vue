@@ -1,31 +1,62 @@
 <template>
-  <form
-    name="contact"
-    method="POST"
-    netlify
-    class="form-box"
-    action="/success"
-  >
-    <p>
-      <label>Your Name<br />
-        <input type="text" name="name" class="input-field" required />
-      </label>
-    </p>
-    <p>
-      <label>Your Email<br />
-        <input type="email" name="email" class="input-field" required />
-      </label>
-    </p>
-    <p>
-      <label>Message<br />
-        <textarea name="message" class="textarea-field" required></textarea>
-      </label>
-    </p>
-    <p>
-      <button type="submit" class="submit-btn">Send</button>
-    </p>
-  </form>
+  <div>
+    <form
+      v-if="!submitted"
+      name="contact"
+      method="POST"
+      netlify
+      @submit.prevent="handleSubmit"
+      class="form-box"
+    >
+      <input type="hidden" name="form-name" value="contact" />
+
+      <p>
+        <label>Your Name<br />
+          <input type="text" name="name" class="input-field" required />
+        </label>
+      </p>
+      <p>
+        <label>Your Email<br />
+          <input type="email" name="email" class="input-field" required />
+        </label>
+      </p>
+      <p>
+        <label>Message<br />
+          <textarea name="message" class="textarea-field" required></textarea>
+        </label>
+      </p>
+      <p>
+        <button type="submit" class="submit-btn">Send</button>
+      </p>
+    </form>
+
+    <div v-else class="confirmation">
+      <h2>🌸 Thank you!</h2>
+      <p>Your message was sent successfully.</p>
+    </div>
+  </div>
 </template>
+
+<script setup>
+const submitted = ref(false)
+
+function handleSubmit(event) {
+  const form = event.target
+  const formData = new FormData(form)
+
+  fetch("/", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams(formData).toString()
+  })
+    .then(() => {
+      submitted.value = true
+    })
+    .catch((error) => {
+      alert("Oops! Something went wrong: " + error)
+    })
+}
+</script>
 
 <style scoped>
 .form-box {
@@ -69,5 +100,16 @@
 
 .submit-btn:hover {
   background: #ec4899;
+}
+
+.confirmation {
+  text-align: center;
+  padding: 2rem;
+  background: #ffeaf4;
+  border-radius: 1.5rem;
+  max-width: 500px;
+  margin: 2rem auto;
+  color: #4b0082;
+  box-shadow: 0 0 15px rgba(192, 132, 252, 0.2);
 }
 </style>
