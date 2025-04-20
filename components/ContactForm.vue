@@ -20,9 +20,8 @@
       </p>
     </form>
 
-    <div v-else class="confirmation">
-      <h2>🎉 Thank you!</h2>
-      <p>Your message has been successfully submitted.</p>
+    <div v-else>
+      <p>✅ Thank you! Your message was sent.</p>
     </div>
   </div>
 </template>
@@ -41,17 +40,3 @@ onMounted(() => {
   }
 })
 </script>
-
-<style scoped>
-.confirmation {
-  margin: 2rem auto;
-  max-width: 500px;
-  background: #e6fffa;
-  border: 2px solid #38b2ac;
-  padding: 1.5rem;
-  border-radius: 1rem;
-  text-align: center;
-  color: #234e52;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-</style>
