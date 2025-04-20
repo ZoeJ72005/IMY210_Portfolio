@@ -1,12 +1,18 @@
 <template>
-  <form name="contact" netlify class="form-box">
+  <form
+    name="contact"
+    method="POST"
+    netlify
+    class="form-box"
+    action="/success"
+  >
     <p>
-      <label>Name<br />
+      <label>Your Name<br />
         <input type="text" name="name" class="input-field" required />
       </label>
     </p>
     <p>
-      <label>Email<br />
+      <label>Your Email<br />
         <input type="email" name="email" class="input-field" required />
       </label>
     </p>
