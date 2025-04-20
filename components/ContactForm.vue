@@ -6,32 +6,59 @@
       netlify
       class="form-box"
       action="/success"
+      @submit.prevent="handleSubmit"
     >
       <p>
         <label>Your Name<br />
-          <input type="text" name="name" class="input-field" required />
+          <input type="text" name="name" class="input-field" required v-model="form.name" />
         </label>
       </p>
       <p>
         <label>Your Email<br />
-          <input type="email" name="email" class="input-field" required />
+          <input type="email" name="email" class="input-field" required v-model="form.email" />
         </label>
       </p>
       <p>
         <label>Message<br />
-          <textarea name="message" class="textarea-field" required></textarea>
+          <textarea name="message" class="textarea-field" required v-model="form.message"></textarea>
         </label>
       </p>
       <p>
         <button type="submit" class="submit-btn">Send</button>
       </p>
     </form>
+
+    <!-- Confirmation message after form submission -->
+    <p v-if="isSubmitted" class="confirmation-message">Your message has been sent! Thank you.</p>
   </div>
 </template>
 
 <script>
 export default {
-  name: "ContactForm"
+  name: "ContactForm",
+  data() {
+    return {
+      form: {
+        name: '',
+        email: '',
+        message: ''
+      },
+      isSubmitted: false
+    };
+  },
+  methods: {
+    handleSubmit() {
+      // Simulate form submission
+      this.isSubmitted = true;
+      // Clear the form fields after submission
+      this.form.name = '';
+      this.form.email = '';
+      this.form.message = '';
+      
+      // If you're using Netlify, it will handle the form submission on the backend
+      // You can perform additional actions here if needed (e.g., resetting the form on success).
+    }
+  }
 };
 </script>
 
@@ -77,5 +104,12 @@ export default {
 
 .submit-btn:hover {
   background: #ec4899;
+}
+
+.confirmation-message {
+  color: green;
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 </style>
